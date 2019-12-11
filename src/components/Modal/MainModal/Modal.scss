@@ -62,9 +62,9 @@ $modalHeight: auto !global;
 // }
 
 @media (max-width: 768px) {
-    .backdrop {
-        display: none;
-    }
+    // .backdrop {
+    //     display: none;
+    // }
     .main-content > .events-container {
         height: 60vh;
         overflow: scroll;
