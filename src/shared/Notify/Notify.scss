@@ -1,0 +1,43 @@
+$boxWidth: 50%;
+$boxHeight: 5rem;
+
+* {
+    box-sizing: border-box;
+}
+
+.success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+
+.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+
+.notify__container {
+    display: grid;
+    position: fixed;
+    z-index: 1000;
+    width: $boxWidth;
+    height: $boxHeight;
+    top: calc((100% - 5rem) / 2);
+    left: calc((100% - 50%) / 2);
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    div {
+        margin: auto 0;
+        font-size: 1rem;
+        text-align: center;
+    }
+}

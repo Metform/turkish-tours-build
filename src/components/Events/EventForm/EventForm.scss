@@ -1,0 +1,26 @@
+.options {
+    display: flex;
+    width: 98%;
+    margin: 0 auto;
+    .options__list {
+        flex: 1
+    }
+    .options__subtitle {
+        flex: 2 
+    }
+}
+
+.about-activity {
+    display: flex;
+    width: 98%;
+    margin: 0 auto;
+    fieldset {
+        height: 100%;
+        legend {
+            font-weight: 600;
+        }
+    }
+    div {
+        flex: 1
+    }
+}

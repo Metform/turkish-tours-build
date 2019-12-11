@@ -1,0 +1,93 @@
+.payment__container {
+    margin: 5% 0;
+    min-width: 300px;
+    padding: 0;
+
+    .header {
+        font-size: 2rem;
+    }
+
+    p:nth-child(2) {
+        color: green;
+    }
+
+    &__cards {
+        width: 290px;
+    }
+
+    .rccs {
+        margin: 0;
+    }
+    
+}
+
+
+.payment__form {
+    display: flex;
+    flex-wrap: wrap;
+    form {
+        display: flex;
+        width: 42%;
+        border: none;
+        flex-direction: column;
+        margin-left: 10px;
+        min-width: 240px;
+        line-height: 18.4px;
+        justify-content: space-between;
+    }
+    
+    div:last-child {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        input[name="card_expiry"] {
+            margin-right: 2px;
+            flex: 2;
+        }
+        input[name="cvc"] {
+            flex: 1;
+        }
+    }
+    input {
+        border: 1px solid #ccc;
+        border-radius: 7.5px;
+        box-shadow: none;
+        display: block;
+        font-size: 20px;
+        outline: none;
+        padding: 10px;
+        transition: all .4s;
+        width: 100%;
+        &:focus {
+            border: 2px solid #1593ff;
+        }
+    }
+}
+    
+.validation_error {
+    display: block;
+    background: none;
+    width: auto;
+    margin-top: 2px;
+    margin-left: 3px;
+    color: #ff475e;
+}
+.validate:invalid {
+    border-color: #ff475e !important;
+}
+   
+.tel_cvc {
+    position: relative;
+    span {
+        position: absolute;
+        bottom: -37px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .payment__form form {
+        margin: 10px 0;
+        min-width: 290px;
+        height: 163px;
+    }
+}

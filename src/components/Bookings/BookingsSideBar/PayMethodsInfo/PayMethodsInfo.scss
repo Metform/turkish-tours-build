@@ -1,0 +1,95 @@
+.content-secondary {
+    position: relative;
+    min-height: 1px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.trust-block:not(:last-child) {
+    margin-bottom: 16px;
+}
+
+.trust-block {
+    padding: 0;
+}
+
+.trust-block-title {
+    font-size: 1rem;
+    line-height: 2.4rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.trust-block-lock {
+    margin-left: 40px;
+    margin-top: 10px;
+    position: relative;
+    &::before {
+        content: '\1F512';
+        position: absolute;
+        left: -41px;
+        top: 5px;
+        font-size: 1.8rem;
+    }
+}
+
+
+.trust-block .payment-methods {
+    list-style: none;
+    overflow: hidden;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+.payment-method.paypal {
+    background-image: url(https://cdn.getyourguide.com/assets/2bf4d89751c0/customer/desktop/cached/paypal_border.svg);
+}
+
+.payment-method.mastercard, .payment-method.mc {
+    background-image: url(https://cdn.getyourguide.com/assets/2bf4d89751c0/customer/desktop/cached/mastercard.svg);
+}
+
+.payment-method.visa {
+    background-image: url(https://cdn.getyourguide.com/assets/2bf4d89751c0/customer/desktop/cached/visa.svg);
+}
+
+.payment-method.maestro {
+    background-image: url(https://cdn.getyourguide.com/assets/2bf4d89751c0/customer/desktop/cached/maestro.svg);
+}
+
+.payment-method.jcb {
+    background-image: url(https://cdn.getyourguide.com/assets/2bf4d89751c0/customer/desktop/cached/jcb.svg);
+}
+
+
+
+.accept .payment-method {
+    margin: 5px 5px 0 0;
+}
+
+.trust-block .payment-method {
+    float: left;
+}
+
+.payment-method {
+    height: 30px;
+    width: 48px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    background-size: contain;
+}
+
+.trust-block .why-gyg-item {
+    margin-left: 40px;
+    margin-top: 10px;
+    position: relative;
+    &::before {
+        content: "\2713";
+        font-weight: bold;
+        color: #00aa71;
+        position: absolute;
+        left: -35px;
+    }
+}

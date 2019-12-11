@@ -1,0 +1,8 @@
+.hotels-container {
+    margin-top: 3%;
+    height: 100vh;
+    overflow: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    ::-webkit-scrollbar { width: 0 !important }
+}

@@ -1,0 +1,63 @@
+.file {
+  display: -ms-grid;
+  display: grid;
+  position: absolute;
+  top: 4rem;
+  left: 0.5rem;
+  /* padding: 20px; */
+  /* width: 5%; */
+  /* margin: 10px; */
+  -ms-grid-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
+  grid-gap: 1rem;
+}
+
+.file__img {
+  width: 150px;
+  height: 150px;
+}
+
+.file__input {
+  display: none;
+}
+
+.file__upload {
+  display: none;
+}
+
+.file__label {
+  display: inline-block;
+  margin-top: 0.4rem;
+  cursor: pointer;
+}
+
+.file__label i {
+  color: rgba(255, 255, 255, 0.3411764705882353);
+  font-size: 1.7rem;
+}
+
+.file__label i:hover {
+  color: #fffbfb;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.file > button {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3411764705882353);
+  padding: 0;
+  font-size: 1.7em;
+  cursor: pointer;
+}
+
+.file > button:hover {
+  color: #fffbfb;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+.file > button:focus {
+  outline: 0;
+}
+/*# sourceMappingURL=Slider.css.map */

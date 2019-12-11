@@ -1,0 +1,44 @@
+.map {
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    &__form {
+        position: absolute;
+        display: grid;
+        top: 10px;
+        right: 10px;
+        z-index: 999;
+        row-gap: 5px;
+        background-color: #ffffff42;
+        box-shadow: 1px 1px 2px #000001;
+        border-radius: 2px;
+        padding: 10px 10px;
+        h3 {
+            margin: 4px 0;
+        }
+        form {
+            display: grid;
+            grid-template-rows: 1fr;
+            row-gap: inherit;
+            textarea { 
+                resize: both;
+                direction: rtl;
+                text-align: left;
+            }
+        }
+        button {
+            margin-right: 0;
+        }
+    }
+}
+
+.geo-spinner {
+    position: absolute;
+    top: 0;
+    left: 41%;
+}
+
+.hide-map {
+    display: none;
+}

@@ -1,0 +1,26 @@
+.hotels__list-item {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hotels__list-item h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #000;
+}
+
+.hotels__list-item h2 {
+    margin: 0;
+    font-size: 1rem;
+    color: rgb(138, 138, 138);
+}
+
+.hotels__list-item p {
+    margin: 0;
+}
