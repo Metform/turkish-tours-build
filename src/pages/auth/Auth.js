@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { path } from 'ramda'
+import { path, view, lensPath } from 'ramda'
 
 import './Auth.scss'
 import authContext from '../../context/auth-context'
@@ -103,20 +103,23 @@ class AuthPage extends Component {
             })
             .then(resParse => {
                 const idToken = path(['data', 'login', 'idToken'], resParse)
+                const errors = view(lensPath(['errors', 0, 'message']), resParse)
+                if (this.state.isLogin && !resParse.data.login && errors) {
+                    this.setInvalidFields(errors)
+                }
+                if (errors) {
+                    console.log(errors)
+                    this.setState({ isSuccess: false, popupMessage: errors })
+                    return
+                }
                 if (!this.state.isLogin && !this.state.isConfirmed && resParse.data.signup) {
                     this.setState({ isPendingConfirmation: true })
-                }
-                if (this.state.isLogin && !resParse.data.login) {
-                    this.setInvalidFields(resParse.errors[0]['message'])
                 }
                 if (this.state.isLogin && idToken) {
                     this.context.login(idToken);
                 }
                 if (resParse.data.signupConfirm) {
                     this.setState({ isSuccess: true, isConfirmed: true, popupMessage: 'You are successfully signed up' })
-                }
-                if (!resParse.data.signup && !resParse.data.signupConfirm) {
-                    this.setState({ isSuccess: false, popupMessage: 'Invalid confirmation code' })
                 }
             })
             .catch(err => {
@@ -149,7 +152,6 @@ class AuthPage extends Component {
         return (
             <div className="email">
                 <input type="number" id="confirmationCode" name="confirmationCode" placeholder="code" ref={this.confirmationCodeEl} required />
-                { !this.state.isSuccess && this.state.popupMessage && (<p style={{'color': 'red'}}>{this.state.popupMessage}</p>) }
             </div>
         )
     }
@@ -189,10 +191,11 @@ class AuthPage extends Component {
                         pattern='^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$'
                         autoComplete="off"
                         required
-                        title="Enter an password consisting of 7+ symbols with at least one upper case letter" />
+                        title="Enter an password consisting of 8+ symbols with at least one uppercase and lowercase letter" />
                 </div>
                 { this.state.isPendingConfirmation && this.renderConfirmationForm() }
-                { this.state.popupMessage && this.state.isSuccess && <Notify error={!this.state.isSuccess} text={this.state.popupMessage} />}
+                { this.state.popupMessage && this.state.isSuccess && <Notify error={!this.state.isSuccess} text={this.state.popupMessage} onClose={() => {this.setState({ popupMessage: '' })}} />}
+                { this.state.popupMessage && !this.state.isSuccess && <Notify error={!this.state.isSuccess} text={this.state.popupMessage} onClose={() => {this.setState({ popupMessage: '' })}} />}
                 <div className="form-action">
                     <button type="submit">{ this.state.isPendingConfirmation ? 'Submit' : 'Confirm' }</button>
                     <button type="button" onClick={this.switchModeHandler}>{this.state.isLogin ? 'Sign Up' : 'Login'}</button>

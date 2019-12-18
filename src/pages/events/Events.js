@@ -48,13 +48,18 @@ class EventsPage extends Component {
     }
     cb = (e) => {
         if (e.keyCode === 27) {
-            this.setState({ showMap: false })
+            this.setState({ selectedEvent: null })
         }
     }
 
     componentDidMount() {
         this.fetchEvents();
         document.addEventListener('keydown', this.cb);
+    }
+
+    componentWillUnmount() {
+        this.isActive = false;
+        document.removeEventListener('keydown', this.cb);
     }
 
     startCreateEventHandler = () => {
@@ -326,11 +331,6 @@ class EventsPage extends Component {
                 }
                 throw new Error(err)
             });
-    }
-
-    componentWillUnmount() {
-        this.isActive = false;
-        document.removeEventListener('keydown', this.cb);
     }
 
     resetFlags = () => {

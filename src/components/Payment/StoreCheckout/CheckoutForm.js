@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { injectStripe } from 'react-stripe-elements';
 import CardSection from './CardSection';
+import { map, pathOr } from 'ramda'
 
 import './CheckoutForm.scss'
 import authContext from "../../../context/auth-context";
@@ -49,6 +50,8 @@ class CheckoutForm extends React.Component {
             clientEmail: this.state.clientEmail,
             mobilePhone: this.state.mobilePhone
         }
+        const transform = ({_id, quantity}) => ({ id: _id, quantity })
+        const eventsIds = map(transform)(this.state.events)
         let requestBody = {
             query: `
             mutation CreatePayment($PaymentInputArgs: PaymentInputArgs! ){
@@ -58,7 +61,7 @@ class CheckoutForm extends React.Component {
                   status
                 }
               }`,
-            variables: { PaymentInputArgs: { token: this.state.token, total: (this.state.total_cost * 100) } }
+            variables: { PaymentInputArgs: { token: this.state.token, total: (this.state.total_cost * 100), eventsIds } }
         };
         fetch(`${this.context.hostname}/graphql`, {
             method: 'POST',
@@ -79,7 +82,9 @@ class CheckoutForm extends React.Component {
             .then(res => {
                 if (res.errors) {
                     this.setState({ isInvalidForm: true, error_message: res.errors[0].message })
-                    console.error(res.errors[0].message)
+                    const humanMessage = pathOr([res.errors[0].message], ['extensions', 'exception', 'invalidArgs'], res.errors[0])
+                    this.setState({ error_message: humanMessage[0], isInvalidForm: true })
+                    return new Error(res.errors[0].message)
                 } else {
                     return res
                 }
@@ -96,6 +101,7 @@ class CheckoutForm extends React.Component {
                             CustomerInput: {
                                 ...customerInput,
                                 lastPaymentId: id,
+                                lastBill: this.state.total_cost,
                                 lastBookingId: this.state.bookingId,
                                 lastPaymentStatus: status
                             }
@@ -138,7 +144,7 @@ class CheckoutForm extends React.Component {
                 <>
                     {succeeded || pending || failed ?
                         <>
-                            <Notify text={!failed ? 'Payment was successful' : 'Payment declined'} error={failed} success={succeeded || pending} duration="2" onClose={() => { this.setState({ isRedirect: true }) }} />
+                            <Notify text={!failed ? 'Payment was successful.\nDetailed information was sent to your email' : 'Payment declined'} error={failed} success={succeeded || pending} duration="3" onClose={() => { this.setState({ isRedirect: true }) }} />
                             {this.state.isRedirect && <Redirect to="/events" />}
                         </> : null}
                 </>

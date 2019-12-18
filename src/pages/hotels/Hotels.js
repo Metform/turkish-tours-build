@@ -274,7 +274,7 @@ export class Hotels extends Component {
 
     componentWillUnmount() {
         this.isActive = false;
-        document.removeEventListener('keydown', this.cb);
+        document.removeEventListener('keydown', this.hide);
     }
 
     resetFlags = () => {

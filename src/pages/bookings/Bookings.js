@@ -18,6 +18,7 @@ import PayMethodsInfo from "../../components/Bookings/BookingsSideBar/PayMethods
 
 import StoreCheckout from '../../components/Payment/StoreCheckout/StoreCheckout'
 import './Bookings.scss';
+import { BookingsHistory } from "../../components/Bookings/BookingsHistory/BookingsHistory";
 
 export function fetchFunction(requestBody) {
     return fetch(`https://ast4fv2t15.execute-api.eu-west-2.amazonaws.com/dev/graphql`, {
@@ -83,6 +84,7 @@ class BookingPage extends Component {
                            id
                            quantity
                            eventId {
+                               _id
                                title
                                date
                                price
@@ -114,18 +116,18 @@ class BookingPage extends Component {
             .then(resParse => {
                 const eventList = path(['data', 'bookingsByUserId'], resParse)
                 const uncompletedBooking = eventList ? find(event => !event.completed)(eventList) : undefined
+
                 if (!eventList.length || !uncompletedBooking || !uncompletedBooking.events) {
                     this.setState({ events: [], hotels: [], isLoading: false })
                     return
                 }
                 const transformer = (x) => mergeDeepLeft(prop('eventId', x), omit(['eventId'], x))
                 const bookedEvents = chain( transformer, uncompletedBooking.events )
-
                 let total_cost = 0
                 bookedEvents.forEach(event => {
                     if (event.price) total_cost += multiply(event.quantity, event.price)
                 });
-                this.setState({ events: bookedEvents, total_cost, isLoading: false, bookingId: uncompletedBooking.id })
+                this.setState({ events: bookedEvents,  total_cost, isLoading: false, bookingId: uncompletedBooking.id })
             })
             .catch(err => {
                 this.setState({ isLoading: false });
@@ -267,7 +269,9 @@ class BookingPage extends Component {
     }
 
     outPutTypeSwitcher = outputType => {
-        outputType === 'list' ? this.setState({ outputType: 'list' }) : this.setState({ outputType: 'chart' });
+        if (outputType) {
+            this.setState({ outputType })
+        }     
     };
 
     nextStep = () => {
@@ -306,8 +310,8 @@ class BookingPage extends Component {
 
     render() {
         const { step } = this.state
-        const { firstName, lastName, clientEmail, country, mobilePhone, user_residence: { label: address }, total_cost, bookingId } = this.state
-        const values = { firstName, lastName, clientEmail, country, mobilePhone, address, total_cost, bookingId }
+        const { firstName, lastName, clientEmail, country, mobilePhone, user_residence: { label: address }, total_cost, bookingId, events } = this.state
+        const values = { firstName, lastName, clientEmail, country, mobilePhone, address, total_cost, bookingId, events }
         switch (step) {
             case 1:
                 return !this.state.isLoading ? (
@@ -325,11 +329,14 @@ class BookingPage extends Component {
                                     onChange={this.outPutTypeSwitcher}
                                 />
                                 <div>
-                                    {this.state.outputType === 'list' ? 
+                                    {this.state.outputType === 'list' &&
                                     <BookingList booking={this.state.events} 
                                         onDelete={this.deleteBookingHandler}
-                                        onChangeQuantity={this.eventQuantityHandler} /> :
+                                        onChangeQuantity={this.eventQuantityHandler} />}
+                                    {this.state.outputType === 'chart' &&
                                     <BookingsChart bookings={this.state.events} />}
+                                    {this.state.outputType === 'history' &&
+                                    <BookingsHistory />}
                                 </div>
                             </div>
                             <BookingsSideBar events={this.state.events} total_cost={this.state.total_cost} >

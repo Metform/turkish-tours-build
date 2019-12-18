@@ -13,9 +13,21 @@ class Modal extends Component {
         super()
         this.dialogRef = React.createRef();
     }
+    
+    onClose = () => this.setState({ isOpen: false })
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.onClose);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.onClose);
+    }
+
     showMap = () => {
         this.setState({ isOpen: !this.state.isOpen });
     }
+
     render() {
         return (
             <div className="modal">

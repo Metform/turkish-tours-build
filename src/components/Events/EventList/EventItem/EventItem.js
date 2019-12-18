@@ -15,6 +15,18 @@ class EventItem extends Component {
         mapIsOpen: false
     }
 
+    onClose = () => {
+        this.setState({ mapIsOpen: false })
+    }
+
+    componentDidMount() {
+        document.addEventListener('keydown', this.onClose);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.onClose);
+    }
+
     showMap = () => {
         this.setState( {mapIsOpen: !this.state.mapIsOpen} );
     }

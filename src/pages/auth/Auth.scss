@@ -9,6 +9,13 @@
     }
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-text-stroke-width: medium;
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
 .auth-control {
     text-align: center;
     border: 1px solid rgb(247, 244, 244);
@@ -55,7 +62,7 @@ $inputShadow: 0 4px 12px -2px rgba(#6B75A1, .16);
         border: $inputBorder;
         border-radius: 4px;
         line-height: 24px;
-        padding: 8px 36px 8px 14px;
+        padding: 8px 5px 8px 14px;
         box-shadow: $inputShadow;
         color: $textColor;
         &::-webkit-input-placeholder {
@@ -79,7 +86,7 @@ $inputShadow: 0 4px 12px -2px rgba(#6B75A1, .16);
         width: 20px;
         height: 20px;
         fill: none;
-        margin: -10px 0 0 0;
+        margin: -10px 5px 0 0;
         polyline,
         path {
             stroke: $border;

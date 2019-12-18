@@ -10,7 +10,7 @@ import BookingPage from './pages/bookings/Bookings';
 import AuthContext from '../src/context/auth-context';
 
 import './App.scss';
-const API_URL = window.location.hostname === 'localhost' ? 'https://ast4fv2t15.execute-api.eu-west-2.amazonaws.com/dev' : 'https://ast4fv2t15.execute-api.eu-west-2.amazonaws.com/dev'
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://ast4fv2t15.execute-api.eu-west-2.amazonaws.com/dev'
 const STRIPE_PUBLISH_KEY = 'pk_test_4GBYsitSDwJ20srHk9Qr0F8q00LKrBd3gE'
 const jwtToken = new RegExp(/("(\\.|[^"])*"|\[|\]|,|\d+|\{|\}|[a-zA-Z0-9_]+)/g)
 function setCookie(name, value, options = {}) {
